@@ -11,8 +11,8 @@ void printWelcomeMsg(){
 cout<<"###################################"<<endl\
     <<"### EE122 Spring 2015 Project 1 ###"<<endl\
     <<"###      Shuo Sun 23602997      ###"<<endl\
-    <<"###         Gabriel Noob        ###"<<endl\
-    <<"###        Client Program       ###"<<endl\
+    <<"###     Gabriel Tan 23845679    ###"<<endl\
+    <<"###        Server Program       ###"<<endl\
     <<"###################################"<<endl<<endl;
 }
 
