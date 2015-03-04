@@ -291,6 +291,7 @@ else if(mode == 1 || mode == 2){
             packetCount ++;
 
             if(packetDelay < 1) {
+		//sleep a fraction of a second
                 usleep((int) (packetDelay * 1000000));
                 } 
             else {
