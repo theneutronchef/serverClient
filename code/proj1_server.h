@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include <sstream>
 #include <string>
+#include <cstring>
 #include <unistd.h>
 #include <signal.h>
 #include <sys/socket.h>

@@ -157,7 +157,7 @@ else if (mode == 1 ) {
     sockfd = socket(AF_INET, SOCK_DGRAM, 0);
 }
 else {
-    sockfd = socket(AF_INET, SOCK_RAW, IPPROTO_UDP); 
+    sockfd = socket(AF_INET, SOCK_DGRAM, 0);
 }
 
 //check for error
@@ -244,6 +244,13 @@ if(mode==0) {
 else if(mode == 1 || mode == 2) {
     //initialize buffer
     buf = new char[UDP_PACKET_SIZE];
+
+    if(mode == 2) {
+	//disable checksum
+	int opt=1;
+	if(setsockopt(sockfd, SOL_SOCKET, SO_NO_CHECK, (void *)&opt, sizeof(opt))==-1) perror("Error");
+	cout<<"UDP checksum disabled..."<<endl;
+	}
 
     //set timeout
     struct timeval tv;

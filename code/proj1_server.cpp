@@ -258,6 +258,9 @@ else if(mode == 1 || mode == 2){
 
     if(mode == 2) {
         //turn off checksum
+	int opt = 1;
+	if(setsockopt(sockfd, SOL_SOCKET,SO_NO_CHECK, (void *)&opt, sizeof(opt)) == -1) perror("Error");
+	cout<<"UDP Checksum disabled..."<<endl;
         }
     while(1){
         cout<<"Waiting for connection..."<<endl;

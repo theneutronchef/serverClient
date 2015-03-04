@@ -7,6 +7,7 @@
 #include <netinet/in.h>
 #include <netdb.h>
 #include <sys/time.h>
+#include <cstring>
 
 #define UDP_PACKET_SIZE 10000
 #define SERVER_TIMEOUT 5
