@@ -131,11 +131,13 @@ int main(int argc, char* argv[]){
     std::queue<int> bufferQueue;
 
     //set timeout
-    struct timeval tv;
-    tv.tv_sec = SERVER_TIMEOUT;
-    tv.tv_usec = 0;
-    if(setsockopt(sockfd, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv)) < 0) printError(SET_TIMEOUT_ERROR);
-
+    if (buffer) {
+        struct timeval tv;
+        tv.tv_sec = SERVER_TIMEOUT;
+        tv.tv_usec = 0;
+        if(setsockopt(sockfd, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv)) < 0) printError(SET_TIMEOUT_ERROR);
+    }
+    
     cout<<"Sending request to server...";
     if(sendto(sockfd, "get", 4, 0, (struct sockaddr *)&server_addr, len) == -1) { printError(SOCKET_SEND_ERROR);}
     cout<<"Done"<<endl;
@@ -143,7 +145,6 @@ int main(int argc, char* argv[]){
     struct timeval t, t2, t3; 
     gettimeofday(&t, NULL); 
     start = (int) (t.tv_sec + t.tv_usec/1000000.0);
-    cout<<"Start:"<<start<<endl;
     while(1) {
         // blocking call to recv
         int n = recvfrom(sockfd, buf, DATA_BLOCK_SIZE, 0, (struct sockaddr *)&server_addr, &len);
@@ -158,9 +159,7 @@ int main(int argc, char* argv[]){
                 if (n > 0) bufferQueue.push(buf[0]);
                 // sleep(5);
                 gettimeofday(&t2, NULL); 
-
                 now = (int) (t2.tv_sec + t2.tv_usec/1000000.0);
-                cout<<now<<endl;
 
                 if (!bufferQueue.empty() && (now - start) >= 5) {
                     int elem = bufferQueue.front();
@@ -168,9 +167,7 @@ int main(int argc, char* argv[]){
                     cout<<"Blink"<<endl;
                     cout<<"Message: "<<elem<<endl;
                     gettimeofday(&t3, NULL); 
-
                     start = (int) (t3.tv_sec + t3.tv_usec/1000000.0);
-                    cout<<"Start:"<<start<<endl;
 
                 }
             } else {

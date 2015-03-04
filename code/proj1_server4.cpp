@@ -121,7 +121,6 @@ while(1){
             datablock[0] = count;
             packetDelay = dis(gen);
             cout<<datablock[0]<<endl;
-            packetDelay = 6;
             cout<<"Delay: "<<packetDelay<<endl;
             sleep(packetDelay);
 
